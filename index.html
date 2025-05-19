@@ -172,7 +172,7 @@
             <p class="form-description">Fill out these fields and you'll have a full LinkedIn post ready to go in a minute.</p>
         </div>
         
-        <form name="contact" netlify>
+         <form name="contact" netlify id="mainForm">
             <div class="form-group">
                 <label for="email" class="required">Email</label>
                 <input type="email" id="email" name="email" placeholder="name@example.com" required>
@@ -191,5 +191,29 @@
             <button type="submit" class="submit-btn">Generate Post</button>
         </form>
     </div>
+<script>
+        // Add form submission handler
+        document.getElementById('mainForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Show the success message
+            alert('Please check your email and LinkedIn! We\'re crafting your perfect post.');
+
+            // Optional: Reset the form after submission
+            this.reset();
+
+            // Submit the form to Netlify (maintains Netlify form functionality)
+            const formData = new FormData(this);
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            }).then(() => {
+                // Optional: Add any additional success handling here
+            }).catch(error => {
+                console.error('Form submission error:', error);
+            });
+        });
+    </script>
 </body>
 </html>
